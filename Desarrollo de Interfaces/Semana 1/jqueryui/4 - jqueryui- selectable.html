@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<script src="js/jquery.js"></script>
+		<script src="js/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="js/jquery-ui.min.css">
+		<link rel="stylesheet" href="js/jquery-ui.structure.min.css">
+		<link rel="stylesheet" href="js/jquery-ui.theme.min.css">
+		<style>
+			ul{list-style-type: none;padding: 5px;margin:auto;}
+			li{width: 500px;border:1px solid blue; padding:10px;}
+			.ui-selected{color:brown;background: black;}
+			
+		</style>
+		<script>
+			$(document).ready(function(){
+				$(".seleccionable").selectable()
+				
+				
+			})
+		</script>
+	</head>
+	<body>
+		<ul class="seleccionable">
+			<li>Black</li>
+			<li>Red</li>
+			<li>Blue</li>
+		</ul>
+		
+	</body>
+</html>

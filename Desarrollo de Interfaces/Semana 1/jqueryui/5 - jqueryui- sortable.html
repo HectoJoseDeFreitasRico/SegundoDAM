@@ -1,0 +1,35 @@
+<html>
+	<head>
+		<script src="js/jquery.js"></script>
+		<script src="js/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="js/jquery-ui.min.css">
+		<link rel="stylesheet" href="js/jquery-ui.structure.min.css">
+		<link rel="stylesheet" href="js/jquery-ui.theme.min.css">
+		<style>
+			
+			
+		</style>
+		<script>
+			$(document).ready(function(){
+				$(".ordenable").sortable()
+				$(".ordenable li").hover(function(){
+					$(this).find("span").addClass("ui-icon ui-icon-pin-w")
+				},function(){
+					$(this).find("span").removeClass("ui-icon ui-icon-pin-w")
+				})
+				
+				
+			})
+		</script>
+	</head>
+	<body>
+		<ol class="ordenable">
+			<li>Red Label<span></span></li>
+			<li>Green Label<span></span></li>
+			<li>Gold Label<span></span></li>
+			<li>Black Label<span></span></li>
+			<li>Blue Label<span></span></li>
+		</ol>
+		
+	</body>
+</html>
