@@ -1,0 +1,98 @@
+<html>
+	<head>
+		<style>
+			body{
+				text-align: center;
+			}
+			#contienecanvas{
+				width: 1095px;
+				height: 1013px;
+				position: relative;
+				float: left;
+			}
+			#contienecanvas canvas{
+				position: absolute;
+				top: 0px;
+				left: 0px;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas id="lienzo" width="1095" height="1013"></canvas>
+		<div id="contienecanvas">
+			<canvas id="lienzodestino" width="1095" height="1013"></canvas>
+			<canvas id="lienzobuckets" width="1095" height="1013"></canvas>
+		</div>
+		
+		<script>
+			//esta variable va almacenar la anchura del cuadrado de comparacion
+			var anchura = 4;
+			var umbral = 10;
+			var anchurabucket = 64;
+			var anchura = 1095;
+			var altura = 1013;
+			var x = 0;
+			var y = 0;
+			//Cargamos el contexto de la imagen en una variable
+			var contexto = document.getElementById("lienzo").getContext("2d")
+			//Cargamos el contexto de la imagen en una variable
+			var contextodestino = document.getElementById("lienzodestino").getContext("2d");
+			var contextobuckets = document.getElementById("lienzobuckets").getContext("2d");
+			var temporizador;
+			//Creamos un nuevo objeto de tipo imagen
+			var foto = new Image();
+			//Le indicamos dicha imagen
+			foto.src = "gato.jpg";
+			var trabajador = new Array();
+			//Ejecutamos una función con cierto retraso para darle tiempo al programa a cargar la imagen
+			setTimeout(function(){
+				//Calculo el tiempo de inicio y lo pongo en una variable
+				const tiempoInicio = Date.now();
+				///dibujo la imagen en el lienzo
+				contexto.drawImage(foto,0,0)
+				
+				numerotrabajadores = navigator.hardwareConcurrency*8;
+				for(var i = 0;i<numerotrabajadores;i++){
+					trabajador[i] = new Worker("tarea7.js");
+					trabajador[i].onmessage = function(datos,i){
+						contextodestino.putImageData(datos.data.resultado,datos.data.mix,datos.data.miy);
+						x+=anchurabucket;
+						if(x > 1095){x=0;y+=anchurabucket}
+						if(y < 1013){
+							bucle(datos.data.miidworker,x,y);
+						}else{
+							const tiempoFinal = Date.now();
+							console.log("el tiempo requerido para calcular este programa fue de "+(tiempoFinal-tiempoInicio));
+						}
+					}
+					bucle(i,x,y);
+					
+					
+				}
+				
+				
+				//calculo el tiempo de finalizacion y lo pongo en otra variables
+				//const tiempoFinal = Date.now();
+				//muestro por pantalla la diferencia entre los tiempos de inicio y los tiempos de finalizacion 
+				//console.log("el tiempo requerido para calcular este programa fue de "+(tiempoFinal-tiempoInicio));
+			},2000)
+			
+			function bucle(i,x,y){
+				var indice = i;
+				contextobuckets.fillRect(x,y,anchurabucket,anchurabucket);
+				contextobuckets.clearRect(x+2,y+2,anchurabucket-4,anchurabucket-4);
+				
+				//meto toda la informacion de los pixeles en una variable
+				var pixeles = contexto.getImageData(x,y,anchurabucket,anchurabucket);
+				//meto la informacion correspondiente al lienzo de destino
+				var pixelesdestino = contextodestino.getImageData(0,0,anchurabucket,anchurabucket);
+				json = {px:pixeles,pxdestino:pixelesdestino,mix:x,miy:y,miumbral:umbral,mianchurabucket:anchurabucket,idworker:i}
+				//console.log("el indice del trabajador es "+indice)
+				trabajador[indice].postMessage(json);
+	
+				
+			}
+			
+		</script>
+	</body>
+</html>
