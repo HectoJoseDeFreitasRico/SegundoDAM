@@ -1,0 +1,14 @@
+DOCS
+
+Generalista - Documentos online - SQL - NoSQL - Admitirá usuarios 
+- los usuarios podrán hacer documentos
+
+Documentos de texto, hojas de calculo, presentaciones
+
+Compartir documentos - los usuarios podrán compartir documentos 
+Los usuarios podrán hacer públicos los documentos
+
+Habrá un superadmin que gestione todos los documentos y todas las cuentas de usuario
+Habrá un panel para cada uno de los usuarios 
+Habrá una parte frontal que permita ver a los usuarios externos los documentos compartidos
+Habrá una panatalla de login y signin

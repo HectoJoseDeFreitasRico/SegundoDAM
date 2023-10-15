@@ -1,0 +1,10 @@
+Software de escritorio(Win-Mac-Linux)
+C - C++ - Java - Python
+
+Software movil(Android - iOS)
+Java - Kotlin - Swift
+
+*Software en la nube*
+HTML+CSS+JS - (jQuery) (Bootstrap)
+PHP - J2 - Python
+MySQL - SQLite - PostgreSQL
