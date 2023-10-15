@@ -1,0 +1,6 @@
+Implementar un ERP existente 
+	-Ofrecer al cliente la adaptacion a sus necesidades(siempre)
+
+
+Desarrollar un ERP desde cero
+	-Las modificaciones son mas faciles porque conocemos el codigo

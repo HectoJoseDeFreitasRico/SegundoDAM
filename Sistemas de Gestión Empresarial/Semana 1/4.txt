@@ -1,0 +1,13 @@
+CRM - Customer Relationship Management - Gestion de la relacion con el cliente - Software para comerciales
+	-Gestin de los clientes
+	-Productos
+	-Guardamos los productos que han comprado los clientes(pedidos)
+
+ERP - Enterprise Resource Planning - Sistema de gestion de recursos de la empresa - Todos los procesos de la empresa, 
+metidos en un programa informatico
+	-CRM
+	-Facturacion y contabilidad
+	-RRHH(modulo recursos humanos)
+	-Gestion de la produccion
+
+CMS - Content Management System - Sistema de gestion del contenido - Sitios Web - Wordpress

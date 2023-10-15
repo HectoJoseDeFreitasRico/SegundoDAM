@@ -1,0 +1,5 @@
+Un programa informatico
+	-Guarda informacion (bases de datos, documentos...)
+	-Informes(salida)
+	-Formularios(entrada)
+	-Acceso a la informacion

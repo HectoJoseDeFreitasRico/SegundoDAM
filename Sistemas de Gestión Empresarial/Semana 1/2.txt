@@ -1,0 +1,10 @@
+Cuando desarrollamos un programa informatico:
+	Desarrollos a medida - por encarga
+		-El cliente te comunica su necesidad
+		-Le dais forma a la necesidad
+		-Se crea una solución de software para solucionar esa necesidad
+
+	Dessarrollos como productos(SaaS)
+		-Planifica un producto
+		-Desarrolla el producto
+		-Vende el producto
