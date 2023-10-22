@@ -1,0 +1,11 @@
+-Usuarios de los documentos - Ven los documentos que otras
+personas han compartido
+-Usuarios de la web - Ven la web y los contenidos, y eventualmente
+se pueden convertir en usuarios
+-Administrador de la web (CMS) - publica noticias en el blog,
+crea contenido en páginas, se asegura que todo este en orden
+y al día
+-Usuario de la web - Dispone de un panel de control desde
+el cual gestiona SUS documentos
+-Usuario superadministrador - Gestiona todas las cuentas de 
+usuario
