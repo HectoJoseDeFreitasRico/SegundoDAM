@@ -1,0 +1,3 @@
+git add piedrapapelotijera.py
+git commit -m "primera version"
+git push origin ganador

@@ -1,0 +1,8 @@
+git branch repetir
+git checkout repetir
+git add piedrapapelotijera.py
+git commit -m "repetir"
+git push origin repetir
+git checkout main
+git merge repetir
+git push origin main
