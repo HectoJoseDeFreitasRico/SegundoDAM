@@ -1,0 +1,1 @@
+db.formularios.deleteOne({nombre:"Luis"});
