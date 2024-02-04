@@ -1,0 +1,112 @@
+<?php 
+session_start();
+include "../config.php";
+$mysqli = new mysqli($mydbserver, $mydbuser, $mydbpassword, $mydb);
+include "../controlador.php";
+$miformulario = new Supercontrolador();
+?>
+
+<html>
+	<head>
+		<script src="https://kit.fontawesome.com/de042286d7.js" crossorigin="anonymous"></script>
+		<style>
+			/*ESTILOS GENERALES*/
+			body{background: rgb(220,220,220);font-family: sans-serif;padding: 0px;margin: 0px;height: 100%;overflow: hidden;}
+			/*ESTILOS FORMULARIO LOGIN*/
+			#formulariologin{width: 300px;height: 300px;background: white;padding: 30px;margin: auto;border-radius: 20px;text-align: center;}
+			#formulariologin input{width: 100%;padding-top: 10px;padding-bottom:  10px;border: 0px;margin-top: 20px;outline: none;background: rgb(210,210,210);border-radius: 5px;}
+			#formulariologin input[type="text"],#formulariologin input[type="password"]{box-shadow: 0px 4px 8px rgba(0,0,0,0.2) inset;}
+			#formulariologin input[type="submit"]{box-shadow: 0px 4px 8px rgba(0,0,0,0.2);}
+			.notice{position:absolute;top: 0px;width: 400px;background: black;color:white;height: 20px;margin-left:-200px;padding: 10px;text-align: center; }
+			/*ESTILOS PANEL DE CONTROL*/
+			aside{width: 20%;float: left;height: 100%;box-shadow: -20px 0px 20px rgba(0,0,0,0.2)inset; }
+			section{width: 80%;float: right;height: 100%;}
+			#contienemenu{padding:10px;}
+			#contienemenu ul{list-style-type: none;padding: 0px;margin: 0px;}
+			#contienemenu li{padding: 10px;margin: 0px;border-bottom: 1px solid grey;}
+			#contienemenu li a{color: inherit;text-decoration: none;}
+			#contienecontenido{padding: 10px;background: white;height: 100%;overflow-y: scroll;}
+			#contienecontenido table{width: 100%;text-align: left;}
+			#contienecontenido table a{padding: 5px;color: inherit;text-decoration: none;}
+			#contienecontenido table a i{font-size: 20px;}
+			#create{color:inherit;text-decoration: none;font-size: 80px;position: absolute;bottom: 10px;right: 10px;}
+			/*ESTILOS DEL FORMULARIO*/
+			#formulario{width: 50%; background: white;margin: auto;padding: 20px;border-radius: 10px;text-align: center;}
+			#formulario h1{color: rgb(100,100,200);font-size: 30px;padding: 0px;margin: 0px;margin-bottom: 20px;}
+			#formulario p{text-align: left;font-size: 10px;}
+			#formulario h3{text-align: left;padding: 0px;margin: 0px;}
+			.campo input{padding: 5px;background: rgb(230,230,230);border: none;margin: 4px;width: 95%;clear: both;}
+			.campo{margin-bottom: 20px;}
+			.campo label{font-size: 2em;padding: 0px;margin: 0px;}
+			.campo p{font-size: 0.6em;padding: 0px;margin: 0px;}
+			#formulario input[type="submit"]{border: none;padding: 10px;width: 200px;margin: auto;background: rgb(220,220,250)}
+			.contienecampo input{float: left;width: 100%;margin-right: 0px;height: 20px;box-shadow: 0px 4px 8px rgba(0,0,0,0.1) inset;}
+			.contienecampo .tipocampo{float: right;width: 100%;background: rgb(200,200,200);height: 30px;line-height: 30px;border-radius: 0px 5px 5px 0px;}
+			.clearfix{clear: both;}
+			.contienecampo table{width: 100%;}
+			input:focus{outline: none;background: white;}
+			input{transition: all 1s;}
+			/*ESTILOS DE LOS CAMPOS*/
+			.email{filter: blur(4px);}
+			.urlsi{color: blue;text-decoration: underline;}
+		</style>
+	</head>
+	<body>
+		<?php 
+			if(isset($_POST['usuario']) && !isset($_SESSION['usuario'])){
+				
+				$consulta = "SELECT * FROM usuarios WHERE usuario =  '".$_POST['usuario']."' AND contrasena = '".$_POST['contrasena']."'";
+				$resultado = $mysqli->query($consulta);
+				$pasas = "no";
+				while ($fila = $resultado->fetch_assoc()) {
+					$pasas = "si";
+					$_SESSION['usuario'] = $fila['usuario'];
+				}
+				if($pasas == "si"){}else{
+					echo '<div class="notice">Intento de acceso denegado</div>';
+				}
+			}
+		?>
+		<?php
+			if(isset($_SESSION['usuario'])){
+				echo '
+					<aside>
+						<div id="contienemenu"><ul>';
+							$consulta = "SHOW TABLES";
+						 	$resultado = $mysqli->query($consulta);
+							while ($fila = $resultado->fetch_array()) {
+								echo '<li><a href="?tabla='.$fila[0].'">'.$fila[0].'</a></li>';
+							}
+						
+						echo '</ul>
+					</div>
+					</aside>
+					<section>
+						<div id="contienecontenido">
+							';
+								if(isset($_GET['delete'])){$miformulario->delete($_GET['tabla'],$_GET['delete']);}
+								if(isset($_GET['update'])){echo'<div id="formulario">';$miformulario->update($_GET['tabla'],$_GET['update']);echo'</div>';}
+								if($_POST['clave'] == "procesainsertar"){$miformulario->procesainsertar();}
+								if($_POST['clave'] == "procesaupdate"){$miformulario->procesaupdate($_POST['tabla'],$_POST['Identificador']);}
+								if(isset($_GET['tabla'])){$miformulario->leer($_GET['tabla']);}
+								if(isset($_GET['create'])){echo'<div id="formulario">';$miformulario->insertar($_GET['create']);echo'</div>';}
+								
+						echo'
+						
+						</div>
+					</section>
+				';
+			}else{
+				echo'
+					<form action="?" method="POST" id="formulariologin">
+						<img src="../icono.ico">
+						<input type="text" name="usuario" placeholder="usuario">
+						<input type="password" name="contrasena" placeholder="contraseña">
+						<input type="submit">
+					</form>
+				';
+			}
+		?>
+		
+	</body>
+</html>
